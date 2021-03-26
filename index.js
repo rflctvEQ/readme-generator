@@ -1,9 +1,9 @@
-// TODO: Include packages needed for this application
+// Application packages
 const fs = require('fs'); 
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown');
 
-// TODO: Create an array of questions for user input
+// Array of questions for user input
 const questions = [
     {
         type: 'input',
@@ -58,7 +58,7 @@ const questions = [
     },
     {
         type: 'input',
-        message: 'Please provide tests for your application and a brief explanation on how to perform them.',
+        message: 'Please provide tests for your application and a brief explanation on how to perform them. (If N/A, please click ENTER or RETURN.)',
         name: 'tests'
     },
     {
@@ -68,7 +68,8 @@ const questions = [
             'MIT License',
             'GNU General Public License v3.0',
             'Apache License v2.0',
-            'Unlicense'
+            'Unlicense',
+            'none'
         ],
         name: 'license'
     },
@@ -84,18 +85,26 @@ const questions = [
     }
 ];
 
-// TODO: Create a function to write README file
+// Function for creating filename 
+function fileName(data) {
+    let str = data.title; 
+
+    // revert data.title to appropriate file name format
+    return str = str.toLowerCase().split(' ').join().replace(',', '-');
+}
+
+// Function to write README file
 function writeToFile(data) {
     // console.log("Seems to be working!")
     const generate = generateMarkdown(data);
 
-    const writeFileFunction = fs.writeFile(`${data.title}-README.md`, generate, (err) =>
-        err ? console.log(err) : console.log('Successfully created README!'));
+    const writeFileFunction = fs.writeFile(`${fileName(data)}-README.md`, generate, (err) =>
+        err ? console.log(err) : console.log(data, `\nSuccessfully created ${fileName(data)}-README!`));
     
     writeFileFunction;
 }
 
-// TODO: Create a function to initialize app
+// Function to initialize app
 async function init() {
     inquirer.prompt(questions)
         .then(writeToFile)

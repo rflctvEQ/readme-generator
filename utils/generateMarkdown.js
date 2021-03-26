@@ -1,6 +1,4 @@
-const questions = require('../index');
-
-// TODO: Create a function that returns a license badge based on which license is passed in
+// Function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
     if  (license.license == 'MIT License') {
@@ -16,7 +14,7 @@ function renderLicenseBadge(license) {
     };
 }
 
-// TODO: Create a function that returns the license link
+// Function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
     if  (license.license == 'MIT License') {
@@ -32,7 +30,7 @@ function renderLicenseLink(license) {
     };
 }
 
-// TODO: Create a function that returns the license section of README
+// Function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
     if  (license.license == 'MIT License') {
@@ -115,10 +113,42 @@ For more information, please refer to <http://unlicense.org/>`
     };
 }
 
-// TODO: Create a function to generate markdown for README
+// Function for rendering markdown for Tests section based on user input
+function generateTestsMd(data) {
+    if (!data.tests == '') {
+        return `
+## Tests
+${data.tests}`
+    } else {
+        return '';
+    }
+}
+
+// Function for rendering markdown for License section based on user input 
+function generateLicenseMd(data) {
+    if (!renderLicenseBadge(data) == '') {
+    return `
+## License
+${renderLicenseBadge(data)}
+
+${renderLicenseLink(data)}
+
+${renderLicenseSection(data)}
+`
+    } else {
+        return '';
+    }
+}
+
+// Function to generate markdown for README
 function generateMarkdown(data) {
-    console.log(data);
-  return `# ${data.title} ${renderLicenseBadge(data)}
+    // console.log(data);
+  return `# ${data.title}
+  
+${renderLicenseBadge(data)}
+
+## Description 
+${data.description}
 
 ## Table of Contents 
 - [Description](#description)
@@ -129,9 +159,6 @@ function generateMarkdown(data) {
 - [Questions](#questions)
 - [License](#license)
 
-## Description 
-${data.description}
-
 ## Installation 
 ${data.installation}
 
@@ -139,26 +166,26 @@ ${data.installation}
 ${data.usage}
 
 ## Credits 
-Number of contributers: ${data.numContributers}
-${data.myName}
-${data.contributer1}
-${data.contributer2}
-${data.contributer3}
-${data.contributer4}
 
-## Tests
-${data.tests}
+### Number of contributers: ${data.numContributers}  
+
+${data.myName}  
+${data.contributer1}  
+${data.contributer2}  
+${data.contributer3}  
+${data.contributer4}  
+
+${generateTestsMd(data)}
 
 ## Questions
-Have questions? Email me at: ${data.email}. 
+Have questions? Email me at: [${data.email}](mailto:${data.email}).
+
 You can also visit my GitHub profile: [Link to ${data.myName}'s GitHub profile](https://github.com/${data.gitHubUser})
 
-## License
-${renderLicenseBadge(data)}
-${renderLicenseLink(data)}
+${generateLicenseMd(data)}
 
-${renderLicenseSection(data)}
-`;
-}
+
+This README was generated using [rflctvEQ's README-generator.](https://github.com/rflctvEQ/readme-generator) 
+`};
 
 module.exports = generateMarkdown;
