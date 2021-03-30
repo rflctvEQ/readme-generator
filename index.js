@@ -87,10 +87,12 @@ const questions = [
 
 // Function for creating filename 
 function fileName(data) {
-    let str = data.title; 
-
     // revert data.title to appropriate file name format
-    return str = str.toLowerCase().split(' ').join().replace(',', '-');
+    let str = data.title
+    let newStr = str.toLowerCase().split(' ').join().replace(/,/g,"-")
+    
+    //! this is broken 
+    return newStr
 }
 
 // Function to write README file
